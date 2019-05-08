@@ -1,0 +1,5 @@
+//dictionary version : introduce new string and redirect it with inCart string
+// remove previous variable of productId and quantity
+            string inCart = "";
+
+            return RedirectToAction("ViewProducts", "Products", new { sessionId=sessionId,Id=user.Id, inCart=inCart} );
