@@ -1,0 +1,11 @@
+Contribution:
+All the controllers
+Personal Class Filter
+All the DB cs files
+Constructing the DB
+Models
+Views (except images)
+
+Things I did not do:
+CSS
+Exception Handling
