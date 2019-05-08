@@ -1,0 +1,23 @@
+@{
+    var inCart = (string)ViewData["inCart"];
+}
+
+@*dictionaryversion: addinCart into the form remove @productId and @quantity*@ 
+<h2>View Products</h2>
+<div class="container-fluid">    @*container-fluid expands to fill the available width*@
+    @{ int x = 0; }
+    @foreach (Products product in products)
+    {
+        <div class="col-sm-3"> @*This refers to div class for web layout*@
+            <form method="post" name="ByproductId">
+                
+
+                <p align="center">
+                    <img class="card-img-top" src="@Url.Content("~/Images/" + product.Id + ".jpg")">
+                    <h4>@product.Name</h4>
+                    <h6>@product.Description</h6>
+                    <h5>SGD @product.Price	</h5><h6>per authentication code</h6>
+                    @*form allows view to send data back to controller*@
+                    <h6>
+                        <input style="height:20px" type="number" Id="quantity" min="0" max="100" value=@x name="quantity" />
+                        <button class="active" type="submit" formaction="@Id?sessionId=@sessionId&productId=@product.Id&inCart=@inCart">Add to Cart</button>
