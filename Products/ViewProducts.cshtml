@@ -1,0 +1,134 @@
+﻿@*Retrieve data from controller*@
+@{
+                /**/
+
+                ViewBag.Title = "View Products";
+                var sessionId = (string)ViewData["sessionId"];
+                var productId = (int)ViewData["productId"];
+                var quantity = (int)ViewData["quantity"];
+                var Id = (int)ViewData["Id"];
+                List<Products> products = (List<Products>)ViewData["products"];
+                var OrderSummary = ViewData["OrderSummary"];
+}
+
+@*hidden value to send back to controller*@
+<div>
+    <input type="hidden" value="@Id" name="@Id" id="@Id" />
+    <input type="hidden" value="@sessionId" name="@sessionId" id="@sessionId" />
+</div>
+
+@*Define namespace*@
+@using CA_ShoppingCart.Models
+
+@*Define view*@
+<td>@Html.Partial("_PageTop") </td>
+@Html.ActionLink("My Purchases", "ViewPurchaseHistory", "Checkout",
+                 new { Id = Id, sessionId = sessionId}, null) |
+@Html.ActionLink("Log Out","Index", "Logout",
+           new { sessionId = sessionId }, null )
+
+@*main form goes here*@
+<h2>View Products</h2>
+<div class="container-fluid">
+    @*container-fluid expands to fill the available width*@
+    @{ int x = 0; }
+    @foreach (Products product in products)
+    {
+        <div class="col-sm-3">
+            @*This refers to div class for web layout*@
+            <form method="post" name="ByproductId">
+                @{
+                    if (productId == @product.Id)
+                    {
+                        x = quantity;
+                    }
+                    else
+                    {
+                        x = 0;
+                    }
+                }
+                <p align="center">
+                    <img class="card-img-top" src="@Url.Content("~/Images/" + product.Id + ".jpg")">
+                    <h4>@product.Name</h4>
+                    <h6>@product.Description</h6>
+                    <h5>SGD @product.Price	</h5><h6>per authentication code</h6>
+                    @*form allows view to send data back to controller*@
+                    <h6>
+                        <input style="height:20px" type="number" Id="quantity" min="0" max="100" value=@x name="quantity" />
+                        <button class="active" type="submit" formaction="@Id?sessionId=@sessionId&productId=@product.Id">Add to Cart</button>
+                    </h6>
+                </p>
+            </form>
+        </div>
+    }
+</div>
+
+@*style*@
+<style>
+    /*table*/
+    tr, td {
+        padding: 15px;
+    }
+
+    /*button*/
+    .btn-primary {
+        padding: 5px 10px;
+        font-size: 18px;
+        text-align: center;
+        cursor: pointer;
+        outline: none;
+        color: #fff;
+        background-color: #4169E1;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 9px #999;
+    }
+
+        .btn-primary:hover {
+            background-color: #2F4F4F
+        }
+
+        .btn-primary:active {
+            background-color: #2F4F4F;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+    /*image*/
+    img.card {
+        width: 40px;
+        height: 40px;
+    }
+
+    img.card-img-top {
+        width: 280px;
+        height: 210px;
+        border: 1px;
+        border-color: black;
+    }
+    /*text*/
+    h4 {
+        text-align: center;
+        font: bolder;
+        font-size: 20px;
+        color: darkblue;
+        font-style: italic;
+    }
+
+    h5 {
+        text-align: center;
+        font-size: 18px;
+        font: bold;
+        color: blue;
+    }
+
+    h6 {
+        text-align: center;
+        font-size: 12px;
+        color: black;
+    }
+    /*body*/
+    body {
+        background-color: lightyellow;
+    }
+</style>
+

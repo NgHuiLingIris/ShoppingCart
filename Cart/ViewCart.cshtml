@@ -1,0 +1,95 @@
+﻿@*Retrieve data from controller*@
+@{
+    ViewBag.Title = "ViewCart";
+    var sessionId = (string)ViewData["sessionId"];
+    var Id = (int)ViewData["Id"];
+    var OrderSummary = (List<Order>)ViewData["OrderSummary"];
+    var cartProducts = (List<Order>)ViewData["cartProducts"];
+    var totalPrice = (double)ViewData["totalPrice"];
+}
+
+@*hidden value to send back to controller*@
+<input type="hidden" value="@sessionId" name="@sessionId" id="@sessionId" />
+<input type="hidden" value="@Id" name="@Id" id="@Id" />
+
+@*Define namespace*@
+@using CA_ShoppingCart.Models
+
+@*Define View*@
+<h5>
+    @Html.ActionLink("Continue Shopping", "ViewProducts", "Products",
+               new { sessionId = sessionId, Id = Id, productId = 0, quantity = 0 }, null) |
+
+    @Html.ActionLink("Log Out","Index", "Logout",
+               new { sessionId = sessionId }, null )
+</h5>
+
+@*main view goes here*@
+<h2>ViewCart</h2>
+<h4 align="right">Total Price : SGD @totalPrice</h4>
+<div>
+    <p align="right"><button class="btn-primary" onclick="window.location.href = '/Checkout/Checkout/@Id?sessionId=@sessionId';">Checkout</button></p>
+</div>
+
+@*form to post to refresh cart*@
+<form method="post" name="ByproductId">
+    <div class="container-fluid">
+        @foreach (var _order in cartProducts)
+        {
+            <img src=@Url.Content("~/Images/"+_order.ProductId+".jpg")>
+            @_order.Description
+            @_order.ProductName
+            <input style="height:20px" type="number" Id="quantity" min="0" max="100" value=@_order.Quantity name="quantity" />
+            <h6>SGD @_order.Price</h6>
+            <button class="active" type="submit" formaction="@Id?sessionId=@sessionId&productId=@_order.ProductId">Refresh Cart</button>
+        }
+
+    </div>
+</form>
+
+@*style*@
+<style>
+    table {
+        border: 1px solid #000000 !important;
+        padding: 4px;
+        align-content: center;
+    }
+
+    tr, td {
+        padding: 8px;
+    }
+
+    .btn-primary {
+        padding: 5px 10px;
+        font-size: 24px;
+        text-align: center;
+        cursor: pointer;
+        outline: none;
+        color: #fff;
+        background-color: #4682B4;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 9px #999;
+    }
+
+        .btn-primary:hover {
+            background-color: #2F4F4F
+        }
+
+        .btn-primary:active {
+            background-color: #2F4F4F;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+
+    img {
+        width: 160px;
+        height: 120px;
+    }
+
+    div {
+        text-align: center;
+        font-size: 12px;
+        color: black;
+    }
+</style>

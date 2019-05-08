@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "ViewCart";
+}
+
+<h2>ViewCart</h2>
+
+
+<table cellspacing="20px">
+    <tr>
+        <td><b>View Cart</b></td>
+        <td>@Html.ActionLink("Continue Shopping","ViewProducts", "Products")       | </td>
+        <td>@Html.ActionLink("Checkout", "Checkout")           | </td>
+        <td align="right">Total : </td>
+    </tr>
+    <tr>
+        <td>@Html.Partial("Product")</td>
+        <td>@Html.Partial("Price")</td>
+        
+    </tr>
+   
+
+</table>

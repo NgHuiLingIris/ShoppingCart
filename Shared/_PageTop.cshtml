@@ -1,0 +1,21 @@
+﻿@model CA_ShoppingCart.Models.User
+@using CA_ShoppingCart.Models;
+@using CA_ShoppingCart.Controllers
+
+
+@{
+    var user = (User)ViewData["user"];
+
+    var sessionId = (string)ViewData["sessionId"];
+    var productId = (int)ViewData["productId"];
+    var quantity = (int)ViewData["quantity"];
+    var Id = (int)ViewData["Id"];
+    var CartCount = (int)ViewData["CartCount"];
+}
+
+
+
+        <p style="text-align:right"><span style="float:left">Hello @user.FirstName @user.LastName !</span>
+            @CartCount<img class="card" src="~/Images/ShoppingCart.png" alt="" /><button class="btn-primary" onclick="window.location.href = '/Cart/ViewCart/@Id?sessionId=@sessionId';">View Cart</button>
+        </p>
+

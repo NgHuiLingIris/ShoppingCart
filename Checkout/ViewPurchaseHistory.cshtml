@@ -1,0 +1,67 @@
+﻿@*Retrieve data from controller*@
+@{
+    /**/
+
+    ViewBag.Title = "ViewPurchaseHistory";
+    var PurchaseHistory = (List<Order>)ViewData["PurchaseHistory"];
+    var sessionId = (string)ViewData["sessionId"];
+    var Id = (int)ViewData["Id"];
+}
+
+@*Define namespace*@
+@using CA_ShoppingCart.Models
+@using CA_ShoppingCart.Util
+
+@*Define View*@
+<h5>
+    @Html.ActionLink("Home", "ViewProducts", "Products",
+               new { sessionId = sessionId, Id = Id, productId = 0, quantity = 0 }, null) |
+
+    @Html.ActionLink("Log Out","Index", "Logout",
+               new { sessionId = sessionId }, null )
+</h5>
+
+@*main view goes here*@
+<h4>My Purchases</h4>
+
+@*form to post for View PurchaseHistory*@
+@using (Html.BeginForm("Index", "Logout", FormMethod.Post))
+{
+    <table align="center" border="1">
+
+        <tr><th>Product</th><th>Purchase Name</th><th>Description</th><th>Order Quantity</th><th>Date</th><th>Activation Code</th></tr>
+        @foreach (var _order in PurchaseHistory)
+        {
+            var date = Timestamp.dateFromTimestamp(@_order.OrderDate);
+
+            <tr>
+                <td align="center"><img src=@Url.Content("~/Images/"+_order.ProductId+".jpg")></td>
+                <td align="center">@_order.ProductName</td>
+                <td align="center">@_order.Description</td>
+                <td align="center">@_order.Quantity</td>
+                <td align="center">@date</td>
+                <td>
+                    <select>
+                        @foreach (string ACode in _order.ActivationCodeList)
+                        {
+
+                            <option value="@ACode">@ACode</option>
+
+                        }
+                    </select>
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+<style>
+    td, tr, th {
+        padding: 8px;
+    }
+
+    img {
+        width: 120px;
+        height: 90px;
+    }
+</style>

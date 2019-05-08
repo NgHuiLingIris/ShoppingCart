@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+@*define using what*@
+@model CA_ShoppingCart.Models.Login
+
+<h2>Login</h2>
+
+@using (Html.BeginForm("Index", "Login", FormMethod.Post))
+{
+    @Html.ValidationSummary(false, "", new { @class = "validation-error" })
+    <table>
+        <tr>
+            <td>
+                @Html.LabelFor(x => x.username, "Username: ")
+                @Html.TextBoxFor(x => x.username)
+                @Html.ValidationMessageFor(x => x.username)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.LabelFor(x => x.password, "Password: ")
+                @Html.PasswordFor(x => x.password)
+                @Html.ValidationMessageFor(x => x.password)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="right">
+                <input type="submit" value="Login" />
+            </td>
+        </tr>
+    </table>
+}
+
+<style>
+    .validation-error {
+        font-weight: bold;
+        color: red;
+    }
+
+    tr, td {
+        padding: 2px;
+    }
+
+    body {
+        background-color: #78C7C7;
+    }
+
+    input[type=submit] {
+        padding: 5px 10px;
+        font-size: 18px;
+        text-align: center;
+        cursor: pointer;
+        outline: none;
+        color: #fff;
+        background-color: #4863A0;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 9px #999;
+    }
+
+    input[type=submit] {
+        background-color: #2F4F4F
+    }
+
+    input[type=submit] {
+        background-color: #2F4F4F;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+    }
+</style>
