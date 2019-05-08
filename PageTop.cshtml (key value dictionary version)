@@ -1,0 +1,4 @@
+@*dictionaryversion: changes made to pagetop remove productid and quantity as well*@
+@{
+    var CartCount = (int)ViewData["CartCount"];
+}
