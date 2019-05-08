@@ -1,0 +1,20 @@
+//Dictionaryversion: changes made to here, when productId = "". Also to carry the inCart string around
+            if (productId != null)
+            {
+                inCart = AddtoOrder(inCart,productId);
+                CountCartUpdate(inCart);
+            }
+//dont want it to be an action result
+        public string AddtoOrder (string inCart,string productId)
+        {
+            inCart += "," + productId;
+            return inCart;
+        }
+        public ActionResult CountCartUpdate(string inCart)
+        {
+            //create a new list from string
+            List<string> inCartList = inCart.Split(',').ToList();
+            int CartCount = inCartList.Count();
+            ViewData["CartCount"] = CartCount;
+            return RedirectToAction("ViewProducts");
+        }
